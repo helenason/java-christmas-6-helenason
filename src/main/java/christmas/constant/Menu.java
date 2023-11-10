@@ -42,4 +42,8 @@ public enum Menu {
     private static List<Menu> getAllMenu() {
         return List.of(values());
     }
+
+    public boolean isDrinkType() {
+        return foodType.equals(DRINK);
+    }
 }
