@@ -49,4 +49,20 @@ class OrderMenuTest {
         assertThatThrownBy(() -> new Order(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("음료만 주문할 경우 예외가 발생한다.")
+    @ValueSource(strings = {"레드와인-3,샴페인-2", "제로콜라-1"})
+    @ParameterizedTest
+    void createOrderByOnlyDrink(String input) {
+        assertThatThrownBy(() -> new Order(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("메뉴가 20개를 넘어가면 예외가 발생한다.")
+    @ValueSource(strings = {"티본스테이크-21", "제로콜라-5,아이스크림-5,양송이수프-15"})
+    @ParameterizedTest
+    void createOrderMoreThanMax(String input) {
+        assertThatThrownBy(() -> new Order(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
