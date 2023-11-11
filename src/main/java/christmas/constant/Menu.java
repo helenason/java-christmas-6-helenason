@@ -46,4 +46,8 @@ public enum Menu {
     public boolean isDrinkType() {
         return foodType.equals(DRINK);
     }
+
+    public String getFoodName() {
+        return foodName;
+    }
 }

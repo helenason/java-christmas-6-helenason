@@ -1,9 +1,12 @@
 package christmas.controller;
 
+import christmas.constant.Menu;
 import christmas.model.Order;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+
+import java.util.Set;
 
 public class Planner {
 
@@ -21,6 +24,17 @@ public class Planner {
     private void init() {
         visitDate = requestVisitDate();
         order = requestOrderMenu();
+
+        informOrderMenu();
+    }
+
+    private void informOrderMenu() {
+        Set<Menu> menus = order.getAllMenus();
+        for (Menu menu : menus) {
+            String foodName = menu.getFoodName();
+            int count = order.getCountOfMenu(menu);
+            outputView.printOrderMenu(foodName, count);
+        }
     }
 
     private VisitDate requestVisitDate() {

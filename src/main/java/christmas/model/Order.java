@@ -42,4 +42,12 @@ public class Order {
             ErrorMessage.MORE_THAN_MAX.throwErrorWithMessage();
         }
     }
+
+    public Set<Menu> getAllMenus() {
+        return orderMenu.keySet();
+    }
+
+    public int getCountOfMenu(Menu menu) {
+        return orderMenu.get(menu);
+    }
 }
