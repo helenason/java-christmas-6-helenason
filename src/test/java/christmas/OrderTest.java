@@ -98,4 +98,18 @@ class OrderTest {
         assertThat(iceCreamCount).isEqualTo(2);
         assertThat(soupCount).isEqualTo(3);
     }
+
+    @DisplayName("주문 내역에 대해 할인 전 전체 금액을 계산한다.")
+    @Test
+    void calculateTotalAmount() {
+
+        Order order = new Order("티본스테이크-1,아이스크림-2,양송이수프-3");
+
+        order.createTotalAmount();
+
+        int expectedAmount = Menu.T_BONE_STEAK.calculateAmountOf(1)
+                + Menu.ICE_CREAM.calculateAmountOf(2)
+                + Menu.MUSHROOM_SOUP.calculateAmountOf(3);
+        assertThat(order.getTotalAmount()).isEqualTo(expectedAmount);
+    }
 }
