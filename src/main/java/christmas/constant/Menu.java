@@ -50,4 +50,8 @@ public enum Menu {
     public String getFoodName() {
         return foodName;
     }
+
+    public int calculateAmountOf(int count) {
+        return price * count;
+    }
 }

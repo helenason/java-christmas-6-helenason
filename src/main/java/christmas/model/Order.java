@@ -11,6 +11,7 @@ public class Order {
     private static final int MAX_OF_ORDER_MENU_SIZE = 20;
 
     private final Map<Menu, Integer> orderMenu;
+    private TotalAmount totalAmount;
 
     public Order(String orderForm) {
         OrderHandler orderHandler = new OrderHandler();
@@ -49,5 +50,15 @@ public class Order {
 
     public int getCountOfMenu(Menu menu) {
         return orderMenu.get(menu);
+    }
+
+    public void createTotalAmount() {
+        int amount = 0;
+        for (Map.Entry<Menu, Integer> order : orderMenu.entrySet()) {
+            Menu menu = order.getKey();
+            int count = order.getValue();
+            amount += menu.calculateAmountOf(count);
+        }
+        totalAmount = new TotalAmount(amount);
     }
 }

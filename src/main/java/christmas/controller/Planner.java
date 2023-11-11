@@ -26,6 +26,8 @@ public class Planner {
         order = requestOrderMenu();
 
         informOrderMenu();
+
+        order.createTotalAmount();
     }
 
     private void informOrderMenu() {
