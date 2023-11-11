@@ -1,14 +1,20 @@
 package christmas;
 
+import christmas.constant.Menu;
 import christmas.model.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class OrderMenuTest {
+class OrderTest {
 
     @DisplayName("메뉴의 형식이 예시와 다른 경우 예외가 발생한다.")
     @ValueSource(strings = {"타파스 - 3", "타파스(1)", "타파스-1, 초코케이크-2",
@@ -64,5 +70,32 @@ class OrderMenuTest {
     void createOrderMoreThanMax(String input) {
         assertThatThrownBy(() -> new Order(input))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("주문 내역의 모든 메뉴를 반환한다.")
+    @Test
+    void returnAllMenusFromOrder() {
+
+        Order order = new Order("티본스테이크-1,아이스크림-2,양송이수프-3");
+
+        Set<Menu> allMenus = order.getAllMenus();
+
+        assertThat(allMenus)
+                .isEqualTo(new HashSet<>(List.of(Menu.T_BONE_STEAK, Menu.ICE_CREAM, Menu.MUSHROOM_SOUP)));
+    }
+
+    @DisplayName("주문 내역에서 해당 메뉴의 주문 개수를 반환한다.")
+    @Test
+    void returnCountOfMenu() {
+
+        Order order = new Order("티본스테이크-1,아이스크림-2,양송이수프-3");
+
+        int steakCount = order.getCountOfMenu(Menu.T_BONE_STEAK);
+        int iceCreamCount = order.getCountOfMenu(Menu.ICE_CREAM);
+        int soupCount = order.getCountOfMenu(Menu.MUSHROOM_SOUP);
+
+        assertThat(steakCount).isEqualTo(1);
+        assertThat(iceCreamCount).isEqualTo(2);
+        assertThat(soupCount).isEqualTo(3);
     }
 }
