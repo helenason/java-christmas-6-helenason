@@ -28,6 +28,7 @@ public class Planner {
         informOrderMenu();
 
         order.createTotalAmount();
+        informTotalAmount();
     }
 
     private void informOrderMenu() {
@@ -37,6 +38,11 @@ public class Planner {
             int count = order.getCountOfMenu(menu);
             outputView.printOrderMenu(foodName, count);
         }
+    }
+
+    private void informTotalAmount() {
+        int totalAmount = order.getTotalAmount();
+        outputView.printTotalAmount(totalAmount);
     }
 
     private VisitDate requestVisitDate() {

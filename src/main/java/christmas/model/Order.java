@@ -61,4 +61,8 @@ public class Order {
         }
         totalAmount = new TotalAmount(amount);
     }
+
+    public int getTotalAmount() { // TODO: refactoring!
+        return totalAmount.getTotalAmount();
+    }
 }
