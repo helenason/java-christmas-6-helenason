@@ -36,4 +36,8 @@ public class VisitDate {
     private int stringToInt(String before) {
         return Integer.parseInt(before);
     }
+
+    public int getDay() {
+        return day;
+    }
 }
