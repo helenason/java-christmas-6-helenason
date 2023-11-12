@@ -19,4 +19,8 @@ public enum DayOfWeek {
     public boolean isCorrectDayOfWeek(int date) {
         return turn == date % 7;
     }
+
+    public boolean isWeekend() {
+        return this == FRIDAY || this == SATURDAY;
+    }
 }

@@ -29,4 +29,13 @@ public class Calendar {
                 .filter(dayOfWeek -> dayOfWeek.isCorrectDayOfWeek(date))
                 .findFirst().orElse(null);
     }
+
+    public boolean isWeekend(int date) {
+        DayOfWeek dayOfWeek = calendar.get(date);
+        return dayOfWeek.isWeekend();
+    }
+
+    public boolean isSpecialDay(int date) {
+        return SPECIAL_DAYS.contains(date);
+    }
 }

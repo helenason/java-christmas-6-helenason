@@ -47,11 +47,23 @@ public enum Menu {
         return foodType.equals(DRINK);
     }
 
+    public boolean isMainType() {
+        return foodType.equals(MAIN);
+    }
+
+    public boolean isDessertType() {
+        return foodType.equals(DESSERT);
+    }
+
     public String getFoodName() {
         return foodName;
     }
 
     public int calculateAmountOf(int count) {
         return price * count;
+    }
+
+    public static int getPriceOfChampagne() {
+        return CHAMPAGNE.price;
     }
 }
