@@ -69,6 +69,12 @@ public class Planner {
         outputView.printDayDiscount(dayDiscountAmount);
         outputView.printSpecialDiscount(specialDiscountAmount);
         outputView.printPresentEvent(presentEventAmount);
+
+        int totalDiscountAmount = christmasDiscountAmount
+                + dayDiscountAmount
+                + specialDiscountAmount
+                + presentEventAmount;
+        outputView.printTotalDiscount(totalDiscountAmount);
     }
 
     private void informOrderMenu() {

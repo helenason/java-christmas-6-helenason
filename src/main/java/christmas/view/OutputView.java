@@ -59,4 +59,12 @@ public class OutputView {
         String formatDiscountAmount = formatter.format(discountAmount);
         System.out.printf(FORMAT_OF_PRESENT_EVENT, formatDiscountAmount);
     }
+
+    public void printTotalDiscount(int discountAmount) {
+        System.out.println(INFORM_TOTAL_DISCOUNT);
+
+        DecimalFormat formatter = new DecimalFormat("#,###"); //
+        String formatDiscountAmount = formatter.format(discountAmount);
+        System.out.printf(FORMAT_OF_TOTAL_DISCOUNT, formatDiscountAmount);
+    }
 }
