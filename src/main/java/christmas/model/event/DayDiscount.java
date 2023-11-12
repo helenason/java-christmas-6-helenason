@@ -1,48 +1,49 @@
 package christmas.model.event;
 
 import christmas.constant.Menu;
-import christmas.model.Calendar;
+import christmas.model.DecemberCalendar;
+import christmas.model.Order;
 
-import java.util.Map;
 import java.util.Set;
 
 public class DayDiscount {
 
-    private int startDate = 1;
-    private int endDate = 31;
-    private Calendar calendar;
+    private final int startDate;
+    private final int endDate;
 
-    public int calculate(Map<Menu, Integer> orderMenu, int date) {
-        if (calendar.isWeekend(date)) {
-            // 메인 메뉴 1개당 2023 할인 (종류 한 개 ??)
-            return discountMainMenu(orderMenu);
-        }
-        // 디저트 메뉴 1개당 2023 할인
-        return discountDessertMenu(orderMenu);
+    public DayDiscount(int startDate, int endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    private int discountDessertMenu(Map<Menu, Integer> orderMenu) {
-        int discountAmount = 0;
-        Set<Menu> menus = orderMenu.keySet();
-        for (Menu menu : menus) {
-            if (menu.isDessertType()) {
-                int count = orderMenu.get(menu);
-                discountAmount += 2023 * count;
-            }
+    public int calculate(Order order, int date) {
+        if (DecemberCalendar.isWeekend(date)) {
+            return discountMainMenu(order);
         }
-        return discountAmount;
+        return discountDessertMenu(order);
     }
 
-    private int discountMainMenu(Map<Menu, Integer> orderMenu) {
+    private int discountDessertMenu(Order order) {
         int discountAmount = 0;
-        Set<Menu> menus = orderMenu.keySet();
+        Set<Menu> menus = order.getAllMenus();
         for (Menu menu : menus) {
             if (menu.isMainType()) {
-                int count = orderMenu.get(menu);
+                int count = order.getCountOfMenu(menu);
                 discountAmount += 2023 * count;
             }
         }
         return discountAmount;
     }
 
+    private int discountMainMenu(Order order) {
+        int discountAmount = 0;
+        Set<Menu> menus = order.getAllMenus();
+        for (Menu menu : menus) {
+            if (menu.isMainType()) {
+                int count = order.getCountOfMenu(menu);
+                discountAmount += 2023 * count;
+            }
+        }
+        return discountAmount;
+    }
 }

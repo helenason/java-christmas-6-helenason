@@ -2,8 +2,13 @@ package christmas.model.event;
 
 public class ChristmasDiscount {
 
-    private int startDate = 1;
-    private int endDate = 25;
+    private final int startDate;
+    private final int endDate;
+
+    public ChristmasDiscount(int startDate, int endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public int calculate(int date) {
         return 1000 + (date - startDate) * 100;

@@ -1,13 +1,16 @@
 package christmas.model.event;
 
 import christmas.constant.Menu;
-import christmas.model.Calendar;
 
 public class PresentEvent {
 
-    private int startDate = 1;
-    private int endDate = 31;
-    private Calendar calendar;
+    private final int startDate;
+    private final int endDate;
+
+    public PresentEvent(int startDate, int endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     public int calculate(int totalAmount) {
         if (totalAmount >= 120000) {
