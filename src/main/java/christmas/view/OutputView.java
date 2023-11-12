@@ -8,6 +8,7 @@ public class OutputView {
     private static final String INFORM_DISCOUNT_DETAILS = "<혜택 내역>";
     private static final String INFORM_TOTAL_DISCOUNT = "<총혜택 금액>";
     private static final String INFORM_EXPECTED_AMOUNT = "<할인 후 예상 결제 금액>";
+    private static final String INFORM_EVENT_BADGE = "<12월 이벤트 배지>";
     private static final String FORMAT_OF_ORDER_MENU = "%s %d개";
     private static final String FORMAT_OF_TOTAL_AMOUNT = "%s원";
     private static final String FORMAT_OF_CHRISTMAS_DISCOUNT = "크리스마스 디데이 할인: -%s원";
@@ -75,5 +76,10 @@ public class OutputView {
         DecimalFormat formatter = new DecimalFormat("#,###"); //
         String formatExpectedAmount = formatter.format(expectedAmount);
         System.out.printf(FORMAT_OF_EXPECTED_AMOUNT, formatExpectedAmount);
+    }
+
+    public void printEventBadge(String badge) {
+        System.out.println(INFORM_EVENT_BADGE);
+        System.out.println(badge);
     }
 }
