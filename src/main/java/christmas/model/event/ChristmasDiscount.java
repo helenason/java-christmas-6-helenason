@@ -5,7 +5,7 @@ public class ChristmasDiscount extends Event {
     private int startDate = 1;
     private int endDate = 25;
 
-    public int calculateDiscountAmount(int date) {
+    public int calculate(int date) {
         return 1000 + (date - startDate) * 100;
     }
 
