@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 public class OutputView {
 
+    private static final String GREETING_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     private static final String INFORM_TOTAL_AMOUNT = "<할인 전 총주문 금액>";
     private static final String INFORM_DISCOUNT_DETAILS = "<혜택 내역>";
     private static final String INFORM_TOTAL_DISCOUNT = "<총혜택 금액>";
@@ -17,6 +18,10 @@ public class OutputView {
     private static final String FORMAT_OF_PRESENT_EVENT = "증정 이벤트: -%s원";
     private static final String FORMAT_OF_TOTAL_DISCOUNT = "-%s원";
     private static final String FORMAT_OF_EXPECTED_AMOUNT = "%s원";
+
+    public void printGreetingMessage() {
+        System.out.println(GREETING_MESSAGE);
+    }
 
     public void printErrorMessage(IllegalArgumentException exception) {
         System.out.println(exception.getMessage());
