@@ -75,6 +75,10 @@ public class Planner {
                 + specialDiscountAmount
                 + presentEventAmount;
         outputView.printTotalDiscount(totalDiscountAmount);
+
+        int totalAmount = order.getTotalAmount();
+        int expectedAmount = totalAmount - totalDiscountAmount;
+        outputView.printExpectedAmount(expectedAmount);
     }
 
     private void informOrderMenu() {

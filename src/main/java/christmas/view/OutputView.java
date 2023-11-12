@@ -15,6 +15,7 @@ public class OutputView {
     private static final String FORMAT_OF_SPECIAL_DISCOUNT = "특별 할인: -%s원";
     private static final String FORMAT_OF_PRESENT_EVENT = "증정 이벤트: -%s원";
     private static final String FORMAT_OF_TOTAL_DISCOUNT = "-%s원";
+    private static final String FORMAT_OF_EXPECTED_AMOUNT = "%s원";
 
     public void printErrorMessage(IllegalArgumentException exception) {
         System.out.println(exception.getMessage());
@@ -66,5 +67,13 @@ public class OutputView {
         DecimalFormat formatter = new DecimalFormat("#,###"); //
         String formatDiscountAmount = formatter.format(discountAmount);
         System.out.printf(FORMAT_OF_TOTAL_DISCOUNT, formatDiscountAmount);
+    }
+
+    public void printExpectedAmount(int expectedAmount) {
+        System.out.println(INFORM_EXPECTED_AMOUNT);
+
+        DecimalFormat formatter = new DecimalFormat("#,###"); //
+        String formatExpectedAmount = formatter.format(expectedAmount);
+        System.out.printf(FORMAT_OF_EXPECTED_AMOUNT, formatExpectedAmount);
     }
 }
