@@ -1,11 +1,16 @@
 package christmas.model.event;
 
 import christmas.constant.Menu;
+import christmas.model.Calendar;
 
 import java.util.Map;
 import java.util.Set;
 
-public class DayDiscount extends Event {
+public class DayDiscount {
+
+    private int startDate = 1;
+    private int endDate = 31;
+    private Calendar calendar;
 
     public int calculate(Map<Menu, Integer> orderMenu, int date) {
         if (calendar.isWeekend(date)) {

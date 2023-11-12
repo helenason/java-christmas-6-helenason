@@ -1,6 +1,6 @@
 package christmas.model.event;
 
-public class ChristmasDiscount extends Event {
+public class ChristmasDiscount {
 
     private int startDate = 1;
     private int endDate = 25;
