@@ -33,13 +33,9 @@ public class EventManager {
 
         if (order.getTotalAmount() < MIN_TOTAL_AMOUNT_FOR_EVENT) {
             outputView.printPresentMenu("없음");
-            outputView.printNewLine();
             outputView.printBenefits(benefits.getBenefits());
-            outputView.printNewLine();
             outputView.printTotalDiscount(0);
-            outputView.printNewLine();
             outputView.printExpectedAmount(order.getTotalAmount());
-            outputView.printNewLine();
             outputView.printEventBadge("없음");
             return;
         }
@@ -52,19 +48,16 @@ public class EventManager {
         organizePresentation(presentEventAmount);
 
         outputView.printBenefits(benefits.getBenefits());
-        outputView.printNewLine();
 
         int totalDiscountAmount = christmasDiscountAmount
                 + dayDiscountAmount
                 + specialDiscountAmount
                 + presentEventAmount;
         outputView.printTotalDiscount(totalDiscountAmount);
-        outputView.printNewLine();
 
         int totalAmount = order.getTotalAmount();
         int expectedAmount = totalAmount - totalDiscountAmount + presentEventAmount;
         outputView.printExpectedAmount(expectedAmount);
-        outputView.printNewLine();
 
         String badge = badgeEvent.calculate(totalDiscountAmount, date);
         outputView.printEventBadge(badge);
@@ -73,7 +66,6 @@ public class EventManager {
     private void organizePresentation(int presentEventAmount) {
         String present = presentEvent.givePresent(presentEventAmount);
         outputView.printPresentMenu(present);
-        outputView.printNewLine();
     }
 
     private int organizeChristmasBenefits(int date) {

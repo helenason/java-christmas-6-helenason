@@ -51,6 +51,7 @@ public class OutputView {
     public void printPresentMenu(String present) {
         System.out.println(INFORM_PRESENT_MENU);
         System.out.println(present);
+        printNewLine();
     }
 
     public void printTotalAmount(int totalAmount) {
@@ -59,15 +60,18 @@ public class OutputView {
         DecimalFormat formatter = new DecimalFormat("#,###"); //
         String formatTotalAmount = formatter.format(totalAmount);
         System.out.printf(FORMAT_OF_TOTAL_AMOUNT, formatTotalAmount);
+        printNewLine();
     }
 
     public void printBenefits(Map<Event, Integer> benefits) {
         System.out.println(INFORM_BENEFITS_DETAILS);
         if (benefits.values().stream().allMatch(amount -> amount.equals(0))) {
             System.out.println(FORMAT_OF_NOTHING);
+            printNewLine();
             return;
         }
         benefits.forEach(this::printAppliedBenefits);
+        printNewLine();
     }
 
     private void printAppliedBenefits(Event event, Integer discountAmount) {
@@ -83,11 +87,13 @@ public class OutputView {
 
         if (discountAmount == 0) {
             System.out.println(FORMAT_OF_ZERO);
+            printNewLine();
             return;
         }
         DecimalFormat formatter = new DecimalFormat("#,###"); //
         String formatDiscountAmount = formatter.format(discountAmount);
         System.out.printf(FORMAT_OF_TOTAL_DISCOUNT, formatDiscountAmount);
+        printNewLine();
     }
 
     public void printExpectedAmount(int expectedAmount) {
@@ -96,6 +102,7 @@ public class OutputView {
         DecimalFormat formatter = new DecimalFormat("#,###"); //
         String formatExpectedAmount = formatter.format(expectedAmount);
         System.out.printf(FORMAT_OF_EXPECTED_AMOUNT, formatExpectedAmount);
+        printNewLine();
     }
 
     public void printEventBadge(String badge) {

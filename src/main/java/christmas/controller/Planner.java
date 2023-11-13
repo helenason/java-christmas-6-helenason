@@ -57,7 +57,6 @@ public class Planner {
     private void informTotalAmount() {
         int totalAmount = order.getTotalAmount();
         outputView.printTotalAmount(totalAmount);
-        outputView.printNewLine();
     }
 
     private VisitDate requestVisitDate() {
