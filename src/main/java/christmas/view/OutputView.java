@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 public class OutputView {
 
     private static final String GREETING_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
+    private static final String PLANNER_START_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     private static final String INFORM_TOTAL_AMOUNT = "<할인 전 총주문 금액>";
     private static final String INFORM_DISCOUNT_DETAILS = "<혜택 내역>";
     private static final String INFORM_TOTAL_DISCOUNT = "<총혜택 금액>";
@@ -21,6 +22,10 @@ public class OutputView {
 
     public void printGreetingMessage() {
         System.out.println(GREETING_MESSAGE);
+    }
+
+    public void printStartMessage(int visitDate) {
+        System.out.printf(PLANNER_START_MESSAGE, visitDate);
     }
 
     public void printErrorMessage(IllegalArgumentException exception) {
