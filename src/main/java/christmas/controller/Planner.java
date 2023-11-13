@@ -30,6 +30,8 @@ public class Planner {
 
         visitDate = requestVisitDate();
         order = requestOrderMenu();
+        inputView.finishReading();
+
         outputView.printStartMessage(visitDate.getDay());
 
         informOrderMenu();

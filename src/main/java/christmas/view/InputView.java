@@ -16,4 +16,8 @@ public class InputView {
         System.out.println(ASK_ORDER_MENU);
         return Console.readLine();
     }
+
+    public void finishReading() {
+        Console.close();
+    }
 }
