@@ -1,5 +1,7 @@
 package christmas.model.event;
 
+import christmas.constant.Event;
+
 public class BadgeEvent {
 
     private final Event event = Event.BADGE;

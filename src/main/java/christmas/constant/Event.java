@@ -1,4 +1,4 @@
-package christmas.model.event;
+package christmas.constant;
 
 public enum Event {
 

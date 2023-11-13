@@ -7,7 +7,7 @@ public enum FoodType {
     DESSERT("디저트"),
     DRINK("음료");
 
-    private String inKorean;
+    private final String inKorean;
 
     FoodType(String inKorean) {
         this.inKorean = inKorean;

@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.constant.Menu;
-import christmas.model.event.Event;
+import christmas.constant.Event;
 
 import java.text.DecimalFormat;
 import java.util.Map;

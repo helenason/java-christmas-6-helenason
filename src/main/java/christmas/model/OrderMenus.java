@@ -1,5 +1,6 @@
 package christmas.model;
 
+import christmas.constant.ErrorMessage;
 import christmas.constant.Menu;
 
 import java.util.*;

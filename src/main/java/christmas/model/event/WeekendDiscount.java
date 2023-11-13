@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import christmas.constant.Event;
 import christmas.model.OrderMenus;
 
 public class WeekendDiscount {

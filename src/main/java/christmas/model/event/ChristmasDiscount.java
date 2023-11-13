@@ -1,5 +1,7 @@
 package christmas.model.event;
 
+import christmas.constant.Event;
+
 public class ChristmasDiscount {
 
     private final Event event = Event.CHRISTMAS;

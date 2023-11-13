@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import christmas.constant.Event;
 import christmas.constant.Menu;
 
 public class PresentEvent {

@@ -1,5 +1,7 @@
 package christmas.model;
 
+import christmas.constant.ErrorMessage;
+
 public class VisitDate {
 
     private static final int FIRST_DAY = 1;

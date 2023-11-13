@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.constant;
 
 public enum DayOfWeek {
 
@@ -10,7 +10,7 @@ public enum DayOfWeek {
     SATURDAY(2),
     SUNDAY(3);
 
-    private int turn;
+    private final int turn;
 
     DayOfWeek(int turn) {
         this.turn = turn;

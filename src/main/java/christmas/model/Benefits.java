@@ -1,4 +1,6 @@
-package christmas.model.event;
+package christmas.model;
+
+import christmas.constant.Event;
 
 import java.util.Collections;
 import java.util.HashMap;
