@@ -22,6 +22,7 @@ public class OutputView {
     private static final String FORMAT_OF_TOTAL_DISCOUNT = "-%s원\n";
     private static final String FORMAT_OF_EXPECTED_AMOUNT = "%s원\n";
     private static final String FORMAT_OF_NOTHING = "없음";
+    private static final String FORMAT_OF_ZERO = "0원";
 
     public void printNewLine() {
         System.out.println();
@@ -64,6 +65,7 @@ public class OutputView {
         System.out.println(INFORM_BENEFITS_DETAILS);
         if (benefits.values().stream().allMatch(amount -> amount.equals(0))) {
             System.out.println(FORMAT_OF_NOTHING);
+            return;
         }
         benefits.forEach(this::printAppliedBenefits);
     }
@@ -79,6 +81,10 @@ public class OutputView {
     public void printTotalDiscount(int discountAmount) {
         System.out.println(INFORM_TOTAL_DISCOUNT);
 
+        if (discountAmount == 0) {
+            System.out.println(FORMAT_OF_ZERO);
+            return;
+        }
         DecimalFormat formatter = new DecimalFormat("#,###"); //
         String formatDiscountAmount = formatter.format(discountAmount);
         System.out.printf(FORMAT_OF_TOTAL_DISCOUNT, formatDiscountAmount);
