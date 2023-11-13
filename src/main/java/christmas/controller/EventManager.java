@@ -7,10 +7,6 @@ import christmas.view.OutputView;
 
 public class EventManager {
 
-    private static final int EVENT_START_DATE = 1;
-    private static final int EVENT_END_DATE = 31;
-    private static final int EVENT_CHRISTMAS_END_DATE = 25;
-
     private final OutputView outputView;
     private final ChristmasDiscount christmasDiscount;
     private final WeekdayDiscount weekdayDiscount;
