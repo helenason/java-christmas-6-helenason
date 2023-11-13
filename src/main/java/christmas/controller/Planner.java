@@ -42,8 +42,11 @@ public class Planner {
     }
 
     private void init() {
+        outputView.printGreetingMessage();
+
         visitDate = requestVisitDate();
         order = requestOrderMenu();
+        outputView.printStartMessage(visitDate.getDay());
 
         informOrderMenu();
 
