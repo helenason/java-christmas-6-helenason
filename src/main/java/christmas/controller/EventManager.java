@@ -1,10 +1,7 @@
 package christmas.controller;
 
 import christmas.model.Order;
-import christmas.model.event.ChristmasDiscount;
-import christmas.model.event.DayDiscount;
-import christmas.model.event.PresentEvent;
-import christmas.model.event.SpecialDiscount;
+import christmas.model.event.*;
 import christmas.view.OutputView;
 
 public class EventManager {
@@ -18,6 +15,7 @@ public class EventManager {
     private final DayDiscount dayDiscount;
     private final SpecialDiscount specialDiscount;
     private final PresentEvent presentEvent;
+    private final BadgeEvent badgeEvent;
 
     public EventManager(OutputView outputView) {
         this.outputView = outputView;
@@ -25,6 +23,7 @@ public class EventManager {
         dayDiscount = new DayDiscount(EVENT_START_DATE, EVENT_END_DATE);
         presentEvent = new PresentEvent(EVENT_START_DATE, EVENT_END_DATE);
         specialDiscount = new SpecialDiscount(EVENT_START_DATE, EVENT_END_DATE);
+        badgeEvent = new BadgeEvent(EVENT_START_DATE, EVENT_END_DATE);
     }
 
     public void organizeBenefits(Order order, int date) {
@@ -47,6 +46,9 @@ public class EventManager {
         int expectedAmount = totalAmount - totalDiscountAmount + presentEventAmount;
         outputView.printExpectedAmount(expectedAmount);
         outputView.printNewLine();
+
+        String badge = badgeEvent.calculate(totalDiscountAmount);
+        outputView.printEventBadge(badge);
     }
 
     private int organizeChristmasBenefits(int date) {
