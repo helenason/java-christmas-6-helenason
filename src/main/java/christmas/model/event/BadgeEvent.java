@@ -2,15 +2,16 @@ package christmas.model.event;
 
 public class BadgeEvent {
 
-    private final int startDate;
-    private final int endDate;
+    private final Event event = Event.BADGE;
 
-    public BadgeEvent(int startDate, int endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public BadgeEvent() {
+
     }
 
-    public String calculate(int benefitAmount) {
+    public String calculate(int benefitAmount, int date) {
+        if (event.isInvalidPeriod(date)) {
+            return "없음";
+        }
         if (checkIfSanta(benefitAmount)) {
             return "산타";
         }

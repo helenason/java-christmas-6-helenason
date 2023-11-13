@@ -4,15 +4,16 @@ import christmas.model.DecemberCalendar;
 
 public class SpecialDiscount {
 
-    private final int startDate;
-    private final int endDate;
+    private final Event event = Event.SPECIAL;
 
-    public SpecialDiscount(int startDate, int endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public SpecialDiscount() {
+
     }
 
     public int calculate(int date) {
+        if (event.isInvalidPeriod(date)) {
+            return 0;
+        }
         if (DecemberCalendar.isSpecialDay(date)) {
             return 1000;
         }

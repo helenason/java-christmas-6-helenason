@@ -7,16 +7,14 @@ import java.util.Set;
 
 public class WeekdayDiscount {
 
-    private final int startDate;
-    private final int endDate;
+    private final Event event = Event.WEEKDAY;
 
-    public WeekdayDiscount(int startDate, int endDate) {
-        this.startDate = startDate;
-        this.endDate = endDate;
+    public WeekdayDiscount() {
+
     }
 
     public int calculate(Order order, int date) {
-        if (isInValidPeriod(date)) {
+        if (event.isInvalidPeriod(date)) {
             return 0;
         }
         int discountAmount = 0;
@@ -28,9 +26,5 @@ public class WeekdayDiscount {
             }
         }
         return discountAmount;
-    }
-
-    private boolean isInValidPeriod(int date) {
-        return date < startDate || date > endDate;
     }
 }

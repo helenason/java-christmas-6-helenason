@@ -22,18 +22,18 @@ public class EventManager {
 
     public EventManager(OutputView outputView) {
         this.outputView = outputView;
-        christmasDiscount = new ChristmasDiscount(EVENT_START_DATE, EVENT_CHRISTMAS_END_DATE);
-        weekdayDiscount = new WeekdayDiscount(EVENT_START_DATE, EVENT_END_DATE);
-        weekendDiscount = new WeekendDiscount(EVENT_START_DATE, EVENT_END_DATE);
-        presentEvent = new PresentEvent(EVENT_START_DATE, EVENT_END_DATE);
-        specialDiscount = new SpecialDiscount(EVENT_START_DATE, EVENT_END_DATE);
-        badgeEvent = new BadgeEvent(EVENT_START_DATE, EVENT_END_DATE);
+        christmasDiscount = new ChristmasDiscount();
+        weekdayDiscount = new WeekdayDiscount();
+        weekendDiscount = new WeekendDiscount();
+        presentEvent = new PresentEvent();
+        specialDiscount = new SpecialDiscount();
+        badgeEvent = new BadgeEvent();
         benefits = new Benefits();
     }
 
     public void organizeBenefits(Order order, int date) {
 
-        int presentEventAmount = organizePresentBenefits(order);
+        int presentEventAmount = organizePresentBenefits(order, date);
         int christmasDiscountAmount = organizeChristmasBenefits(date);
         int dayDiscountAmount = organizeDayBenefits(order, date);
         int specialDiscountAmount = organizeSpecialBenefits(date);
@@ -59,7 +59,7 @@ public class EventManager {
         outputView.printExpectedAmount(expectedAmount);
         outputView.printNewLine();
 
-        String badge = badgeEvent.calculate(totalDiscountAmount);
+        String badge = badgeEvent.calculate(totalDiscountAmount, date);
         outputView.printEventBadge(badge);
     }
 
@@ -86,8 +86,8 @@ public class EventManager {
         return discountAmount;
     }
 
-    private int organizePresentBenefits(Order order) {
-        int discountAmount = presentEvent.calculate(order.getTotalAmount());
+    private int organizePresentBenefits(Order order, int date) {
+        int discountAmount = presentEvent.calculate(order.getTotalAmount(), date);
         benefits.createBenefit(Event.PRESENT, discountAmount);
         return discountAmount;
     }
