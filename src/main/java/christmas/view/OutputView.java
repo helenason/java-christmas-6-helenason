@@ -50,7 +50,7 @@ public class OutputView {
 
     public void printPresentMenu(String present) {
         System.out.println(INFORM_PRESENT_MENU);
-        System.out.printf(present);
+        System.out.println(present);
     }
 
     public void printTotalAmount(int totalAmount) {

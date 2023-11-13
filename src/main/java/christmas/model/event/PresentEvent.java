@@ -5,6 +5,7 @@ import christmas.constant.Menu;
 public class PresentEvent {
 
     private static final String PRESENT = "샴페인 1개";
+    private static final String NOTHING = "없음";
 
     private final Event event = Event.PRESENT;
 
@@ -22,7 +23,14 @@ public class PresentEvent {
         return 0;
     }
 
-    public String givePresent() {
-        return PRESENT;
+    public String givePresent(int presentEventAmount) {
+        if (isPresent(presentEventAmount)) {
+            return PRESENT;
+        }
+        return NOTHING;
+    }
+
+    private boolean isPresent(int presentEventAmount) {
+        return presentEventAmount != 0;
     }
 }

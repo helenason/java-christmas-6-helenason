@@ -38,11 +38,7 @@ public class EventManager {
         int dayDiscountAmount = organizeDayBenefits(order, date);
         int specialDiscountAmount = organizeSpecialBenefits(date);
 
-        if (isPresent(presentEventAmount)) { // 증정 메뉴
-            String present = presentEvent.givePresent();
-            outputView.printPresentMenu(present);
-            outputView.printNewLine();
-        }
+        organizePresentation(presentEventAmount);
 
         outputView.printBenefits(benefits.getBenefits());
         outputView.printNewLine();
@@ -61,6 +57,12 @@ public class EventManager {
 
         String badge = badgeEvent.calculate(totalDiscountAmount, date);
         outputView.printEventBadge(badge);
+    }
+
+    private void organizePresentation(int presentEventAmount) {
+        String present = presentEvent.givePresent(presentEventAmount);
+        outputView.printPresentMenu(present);
+        outputView.printNewLine();
     }
 
     private int organizeChristmasBenefits(int date) {
@@ -90,9 +92,5 @@ public class EventManager {
         int discountAmount = presentEvent.calculate(order.getTotalAmount(), date);
         benefits.createBenefit(Event.PRESENT, discountAmount);
         return discountAmount;
-    }
-
-    private boolean isPresent(int presentEventAmount) {
-        return presentEventAmount != 0;
     }
 }
