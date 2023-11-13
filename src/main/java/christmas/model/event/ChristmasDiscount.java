@@ -16,5 +16,4 @@ public class ChristmasDiscount {
         }
         return 0;
     }
-
 }

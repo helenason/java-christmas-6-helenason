@@ -4,6 +4,8 @@ import christmas.constant.Menu;
 
 public class PresentEvent {
 
+    private static final String PRESENT = "샴페인 1개";
+
     private final int startDate;
     private final int endDate;
 
@@ -17,5 +19,9 @@ public class PresentEvent {
             return Menu.getPriceOfChampagne();
         }
         return 0;
+    }
+
+    public String givePresent() {
+        return PRESENT;
     }
 }
