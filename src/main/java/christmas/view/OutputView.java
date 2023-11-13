@@ -61,13 +61,15 @@ public class OutputView {
 
     public void printBenefits(Map<Event, Integer> benefits) {
         System.out.println(INFORM_BENEFITS_DETAILS);
-        benefits.forEach(
-                ((event, discountAmount) -> {
-                    DecimalFormat formatter = new DecimalFormat("#,###");
-                    String formatDiscountAmount = formatter.format(discountAmount);
-                    System.out.printf(FORMAT_OF_APPLY_EVENT, event.getEventName(), formatDiscountAmount);
-                })
-        );
+        benefits.forEach(this::printAppliedBenefits);
+    }
+
+    private void printAppliedBenefits(Event event, Integer discountAmount) {
+        if (discountAmount != 0) {
+            DecimalFormat formatter = new DecimalFormat("#,###");
+            String formatDiscountAmount = formatter.format(discountAmount);
+            System.out.printf(FORMAT_OF_APPLY_EVENT, event.getEventName(), formatDiscountAmount);
+        }
     }
 
     public void printTotalDiscount(int discountAmount) {
