@@ -21,6 +21,7 @@ public class OutputView {
     private static final String FORMAT_OF_APPLY_EVENT = "%s: -%s원\n";
     private static final String FORMAT_OF_TOTAL_DISCOUNT = "-%s원\n";
     private static final String FORMAT_OF_EXPECTED_AMOUNT = "%s원\n";
+    private static final String FORMAT_OF_NOTHING = "없음";
 
     public void printNewLine() {
         System.out.println();
@@ -61,6 +62,9 @@ public class OutputView {
 
     public void printBenefits(Map<Event, Integer> benefits) {
         System.out.println(INFORM_BENEFITS_DETAILS);
+        if (benefits.values().stream().allMatch(amount -> amount.equals(0))) {
+            System.out.println(FORMAT_OF_NOTHING);
+        }
         benefits.forEach(this::printAppliedBenefits);
     }
 
