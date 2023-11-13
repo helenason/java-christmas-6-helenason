@@ -22,11 +22,11 @@ public enum Menu {
     RED_WINE("레드와인", 60000, DRINK),
     CHAMPAGNE("샴페인", 25000, DRINK);
 
-    private String foodName;
-    private int price;
-    private Enum foodType;
+    private final String foodName;
+    private final int price;
+    private final FoodType foodType;
 
-    Menu(String foodName, int price, Enum foodType) {
+    Menu(String foodName, int price, FoodType foodType) {
         this.foodName = foodName;
         this.price = price;
         this.foodType = foodType;
