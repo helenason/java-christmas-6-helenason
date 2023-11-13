@@ -72,30 +72,36 @@ public class Planner {
         outputView.printDayDiscount(dayDiscountAmount);
         outputView.printSpecialDiscount(specialDiscountAmount);
         outputView.printPresentEvent(presentEventAmount);
+        outputView.printNewLine();
 
         int totalDiscountAmount = christmasDiscountAmount
                 + dayDiscountAmount
                 + specialDiscountAmount
                 + presentEventAmount;
         outputView.printTotalDiscount(totalDiscountAmount);
+        outputView.printNewLine();
 
         int totalAmount = order.getTotalAmount();
         int expectedAmount = totalAmount - totalDiscountAmount;
         outputView.printExpectedAmount(expectedAmount);
+        outputView.printNewLine();
     }
 
     private void informOrderMenu() {
+        outputView.printOrderMenu();
         Set<Menu> menus = order.getAllMenus();
         for (Menu menu : menus) {
             String foodName = menu.getFoodName();
             int count = order.getCountOfMenu(menu);
             outputView.printOrderMenu(foodName, count);
         }
+        outputView.printNewLine();
     }
 
     private void informTotalAmount() {
         int totalAmount = order.getTotalAmount();
         outputView.printTotalAmount(totalAmount);
+        outputView.printNewLine();
     }
 
     private VisitDate requestVisitDate() {
