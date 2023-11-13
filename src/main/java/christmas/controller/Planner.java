@@ -2,19 +2,19 @@ package christmas.controller;
 
 import christmas.constant.Menu;
 import christmas.model.DecemberCalendar;
-import christmas.model.Order;
+import christmas.model.OrderMenus;
 import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
-import java.util.Set;
+import java.util.Map;
 
 public class Planner {
 
     private final InputView inputView;
     private final OutputView outputView;
     private VisitDate visitDate;
-    private Order order;
+    private OrderMenus orderMenus;
 
     public Planner() {
         inputView = new InputView();
@@ -27,35 +27,29 @@ public class Planner {
         outputView.printGreetingMessage();
 
         visitDate = requestVisitDate();
-        order = requestOrderMenu();
+        orderMenus = requestOrderMenu();
         inputView.finishReading();
 
         outputView.printStartMessage(visitDate.getDay());
 
         informOrderMenu();
 
-        order.createTotalAmount();
-        informTotalAmount();
+        int totalAmount = orderMenus.calculateTotalAmount();
+        informTotalAmount(totalAmount);
     }
 
     public void work() {
         EventManager eventManager = new EventManager(outputView);
-        eventManager.organizeBenefits(order, visitDate.getDay());
+        eventManager.organizeBenefits(orderMenus, visitDate.getDay());
     }
 
     private void informOrderMenu() {
-        outputView.printOrderMenu();
-        Set<Menu> menus = order.getAllMenus();
-        for (Menu menu : menus) {
-            String foodName = menu.getFoodName();
-            int count = order.getCountOfMenu(menu);
-            outputView.printOrderMenu(foodName, count);
-        }
-        outputView.printNewLine();
+
+        Map<Menu, Integer> orderMenu = orderMenus.getOrderMenus();
+        outputView.printOrderMenu(orderMenu);
     }
 
-    private void informTotalAmount() {
-        int totalAmount = order.getTotalAmount();
+    private void informTotalAmount(int totalAmount) {
         outputView.printTotalAmount(totalAmount);
     }
 
@@ -70,11 +64,11 @@ public class Planner {
         }
     }
 
-    private Order requestOrderMenu() {
+    private OrderMenus requestOrderMenu() {
         while (true) {
             try {
                 String inputOfOrderMenu = inputView.readOrderMenu();
-                return new Order(inputOfOrderMenu);
+                return new OrderMenus(inputOfOrderMenu);
             } catch (IllegalArgumentException exception) {
                 outputView.printErrorMessage(exception);
             }

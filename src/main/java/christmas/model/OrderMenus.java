@@ -2,12 +2,9 @@ package christmas.model;
 
 import christmas.constant.Menu;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class OrderHandler {
+public class OrderMenus {
 
     private static final String DELIMITER_OF_ORDER = ",";
     private static final String DELIMITER_OF_MENU_COUNT = "-";
@@ -15,12 +12,11 @@ public class OrderHandler {
     private static final int INDEX_OF_COUNT = 1;
     private static final int LENGTH_OF_ORDER_FORM = 2;
     private static final int MIN_OF_COUNT = 1;
+    private static final int MAX_OF_ORDER_MENU_SIZE = 20;
 
-    private final List<String> foodNames = new ArrayList<>();
+    private final Map<Menu, Integer> orderMenus = new HashMap<>();
 
-    public Map<Menu, Integer> createOrder(String input) {
-        Map<Menu, Integer> orderMenu = new HashMap<>();
-
+    public OrderMenus(String input) {
         String[] orders = input.split(DELIMITER_OF_ORDER);
         for (String order : orders) {
 
@@ -29,9 +25,75 @@ public class OrderHandler {
             String count = extractCount(orderForm);
 
             Menu menu = Menu.getMenuWithFoodName(foodName);
-            orderMenu.put(menu, Integer.parseInt(count));
+            orderMenus.put(menu, Integer.parseInt(count));
         }
-        return orderMenu;
+        validate();
+    }
+
+    private void validate() {
+        validateIfOnlyDrink();
+        validateOrderCount();
+    }
+
+    private void validateIfOnlyDrink() {
+        if (hasOnlyDrinks()) {
+            ErrorMessage.ONLY_DRINK.throwErrorWithMessage();
+        }
+    }
+
+    private void validateOrderCount() {
+        int totalCount = countOrderMenus();
+        if (totalCount > MAX_OF_ORDER_MENU_SIZE) {
+            ErrorMessage.MORE_THAN_MAX.throwErrorWithMessage();
+        }
+    }
+
+    public Map<Menu, Integer> getOrderMenus() {
+        return Collections.unmodifiableMap(orderMenus);
+    }
+
+    private boolean hasOnlyDrinks() {
+        Set<Menu> menus = orderMenus.keySet();
+        return menus.stream().allMatch(Menu::isDrinkType);
+    }
+
+    private int countOrderMenus() {
+        Collection<Integer> counts = orderMenus.values();
+        return counts.stream()
+                .mapToInt(Integer::intValue)
+                .sum(); // TODO: check convention!
+    }
+
+    public int calculateTotalAmount() {
+        int totalAmount = 0;
+        Set<Menu> menus = orderMenus.keySet();
+        for (Menu menu : menus) {
+            int count = orderMenus.get(menu);
+            totalAmount += menu.calculateAmountOf(count);
+        }
+        return totalAmount;
+    }
+
+    public int countMainType() {
+        int count = 0;
+        Set<Menu> menus = orderMenus.keySet();
+        for (Menu menu : menus) {
+            if (menu.isMainType()) {
+                count += orderMenus.get(menu);
+            }
+        }
+        return count;
+    }
+
+    public int countDessertType() {
+        int count = 0;
+        Set<Menu> menus = orderMenus.keySet();
+        for (Menu menu : menus) {
+            if (menu.isDessertType()) {
+                count += orderMenus.get(menu);
+            }
+        }
+        return count;
     }
 
     private String[] extractOrder(String order) {
@@ -69,10 +131,11 @@ public class OrderHandler {
     }
 
     private void validateDuplicatedMenu(String foodName) {
-        if (foodNames.contains(foodName)) {
+        Menu menu = Menu.getMenuWithFoodName(foodName);
+        Set<Menu> orderedMenus = orderMenus.keySet();
+        if (orderedMenus.contains(menu)) {
             ErrorMessage.INVALID_ORDER.throwErrorWithMessage();
         }
-        foodNames.add(foodName);
     }
 
     private void validateCount(String countForm) {

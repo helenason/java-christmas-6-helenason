@@ -1,7 +1,7 @@
 package christmas.controller;
 
 import christmas.model.DecemberCalendar;
-import christmas.model.Order;
+import christmas.model.OrderMenus;
 import christmas.model.event.*;
 import christmas.view.OutputView;
 
@@ -29,20 +29,22 @@ public class EventManager {
         benefits = new Benefits();
     }
 
-    public void organizeBenefits(Order order, int date) {
+    public void organizeBenefits(OrderMenus orderMenus, int date) {
 
-        if (order.getTotalAmount() < MIN_TOTAL_AMOUNT_FOR_EVENT) {
+        int totalAmount = orderMenus.calculateTotalAmount();
+
+        if (totalAmount < MIN_TOTAL_AMOUNT_FOR_EVENT) {
             outputView.printPresentMenu("없음");
             outputView.printBenefits(benefits.getBenefits());
             outputView.printTotalDiscount(0);
-            outputView.printExpectedAmount(order.getTotalAmount());
+            outputView.printExpectedAmount(totalAmount);
             outputView.printEventBadge("없음");
             return;
         }
 
-        int presentEventAmount = organizePresentBenefits(order, date);
+        int presentEventAmount = organizePresentBenefits(orderMenus, date);
         int christmasDiscountAmount = organizeChristmasBenefits(date);
-        int dayDiscountAmount = organizeDayBenefits(order, date);
+        int dayDiscountAmount = organizeDayBenefits(orderMenus, date);
         int specialDiscountAmount = organizeSpecialBenefits(date);
 
         organizePresentation(presentEventAmount);
@@ -55,7 +57,6 @@ public class EventManager {
                 + presentEventAmount;
         outputView.printTotalDiscount(totalDiscountAmount);
 
-        int totalAmount = order.getTotalAmount();
         int expectedAmount = totalAmount - totalDiscountAmount + presentEventAmount;
         outputView.printExpectedAmount(expectedAmount);
 
@@ -74,13 +75,13 @@ public class EventManager {
         return discountAmount;
     }
 
-    private int organizeDayBenefits(Order order, int date) {
+    private int organizeDayBenefits(OrderMenus orderMenus, int date) {
         if (DecemberCalendar.isWeekend(date)) {
-            int discountAmount = weekendDiscount.calculate(order, date);
+            int discountAmount = weekendDiscount.calculate(orderMenus, date);
             benefits.createBenefit(Event.WEEKEND, discountAmount);
             return discountAmount;
         }
-        int discountAmount = weekdayDiscount.calculate(order, date);
+        int discountAmount = weekdayDiscount.calculate(orderMenus, date);
         benefits.createBenefit(Event.WEEKDAY, discountAmount);
         return discountAmount;
     }
@@ -91,8 +92,8 @@ public class EventManager {
         return discountAmount;
     }
 
-    private int organizePresentBenefits(Order order, int date) {
-        int discountAmount = presentEvent.calculate(order.getTotalAmount(), date);
+    private int organizePresentBenefits(OrderMenus orderMenus, int date) {
+        int discountAmount = presentEvent.calculate(orderMenus.calculateTotalAmount(), date);
         benefits.createBenefit(Event.PRESENT, discountAmount);
         return discountAmount;
     }

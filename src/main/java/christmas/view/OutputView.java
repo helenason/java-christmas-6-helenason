@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.constant.Menu;
 import christmas.model.event.Event;
 
 import java.text.DecimalFormat;
@@ -24,7 +25,7 @@ public class OutputView {
     private static final String FORMAT_OF_NOTHING = "없음";
     private static final String FORMAT_OF_ZERO = "0원";
 
-    public void printNewLine() {
+    public void printNewLine() { // TODO: private
         System.out.println();
     }
 
@@ -40,12 +41,12 @@ public class OutputView {
         System.out.println(exception.getMessage());
     }
 
-    public void printOrderMenu() {
+    public void printOrderMenu(Map<Menu, Integer> orderMenus) {
         System.out.println(INFORM_ORDER_MENU);
-    }
-
-    public void printOrderMenu(String foodName, int count) {
-        System.out.printf(FORMAT_OF_ORDER_MENU, foodName, count);
+        orderMenus.forEach(
+                (menu, count) -> System.out.printf(FORMAT_OF_ORDER_MENU, menu.getFoodName(), count)
+        );
+        printNewLine();
     }
 
     public void printPresentMenu(String present) {
