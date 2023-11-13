@@ -7,6 +7,8 @@ import christmas.view.OutputView;
 
 public class EventManager {
 
+    private static final int MIN_TOTAL_AMOUNT_FOR_EVENT = 10000;
+
     private final OutputView outputView;
     private final ChristmasDiscount christmasDiscount;
     private final WeekdayDiscount weekdayDiscount;
@@ -28,6 +30,19 @@ public class EventManager {
     }
 
     public void organizeBenefits(Order order, int date) {
+
+        if (order.getTotalAmount() < MIN_TOTAL_AMOUNT_FOR_EVENT) {
+            outputView.printPresentMenu("없음");
+            outputView.printNewLine();
+            outputView.printBenefits(benefits.getBenefits());
+            outputView.printNewLine();
+            outputView.printTotalDiscount(0);
+            outputView.printNewLine();
+            outputView.printExpectedAmount(order.getTotalAmount());
+            outputView.printNewLine();
+            outputView.printEventBadge("없음");
+            return;
+        }
 
         int presentEventAmount = organizePresentBenefits(order, date);
         int christmasDiscountAmount = organizeChristmasBenefits(date);

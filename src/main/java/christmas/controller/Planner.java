@@ -13,14 +13,12 @@ public class Planner {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final EventManager eventManager;
     private VisitDate visitDate;
     private Order order;
 
     public Planner() {
         inputView = new InputView();
         outputView = new OutputView();
-        eventManager = new EventManager(outputView);
         init();
         DecemberCalendar.of();
     }
@@ -41,6 +39,7 @@ public class Planner {
     }
 
     public void work() {
+        EventManager eventManager = new EventManager(outputView);
         eventManager.organizeBenefits(order, visitDate.getDay());
     }
 
