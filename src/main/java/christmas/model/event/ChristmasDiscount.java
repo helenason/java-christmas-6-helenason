@@ -11,7 +11,10 @@ public class ChristmasDiscount {
     }
 
     public int calculate(int date) {
-        return 1000 + (date - startDate) * 100;
+        if (date <= endDate) {
+            return 1000 + (date - startDate) * 100;
+        }
+        return 0;
     }
 
 }
