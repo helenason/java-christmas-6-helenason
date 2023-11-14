@@ -12,7 +12,7 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-class OrderTest {
+class OrderMenusTest {
 
     @DisplayName("메뉴의 형식이 예시와 다른 경우 예외가 발생한다.")
     @ValueSource(strings = {"타파스 - 3", "타파스(1)", "타파스-1, 초코케이크-2",
@@ -97,5 +97,47 @@ class OrderTest {
                 + Menu.ICE_CREAM.calculateAmountOf(2)
                 + Menu.MUSHROOM_SOUP.calculateAmountOf(3);
         assertThat(order.calculateTotalAmount()).isEqualTo(expectedAmount);
+    }
+
+    @DisplayName("주문 메뉴 중 메인 메뉴의 개수를 센다.")
+    @Test
+    void countMainMenuInOrderMenu() {
+        OrderMenus orderMenus = new OrderMenus("티본스테이크-1,크리스마스파스타-2,양송이수프-3");
+
+        int mainCount = orderMenus.countMainType();
+
+        assertThat(mainCount).isEqualTo(3);
+    }
+
+    @DisplayName("주문 메뉴 중 메인 메뉴의 개수가 0개이다.")
+    @ValueSource(strings = {"초코케이크-2", "아이스크림-1", "양송이수프-3,제로콜라-1"})
+    @ParameterizedTest
+    void countNoneMainMenuInOrderMenu(String input) {
+        OrderMenus orderMenus = new OrderMenus(input);
+
+        int mainCount = orderMenus.countMainType();
+
+        assertThat(mainCount).isEqualTo(0);
+    }
+
+    @DisplayName("주문 메뉴 중 디저트 메뉴의 개수를 센다.")
+    @Test
+    void countDessertMenuInOrderMenu() {
+        OrderMenus orderMenus = new OrderMenus("티본스테이크-1,초코케이크-2,양송이수프-3");
+
+        int mainCount = orderMenus.countDessertType();
+
+        assertThat(mainCount).isEqualTo(2);
+    }
+
+    @DisplayName("주문 메뉴 중 디저트 메뉴의 개수가 0개이다.")
+    @ValueSource(strings = {"티본스테이크-1,샴페인-2", "크리스마스파스타-1", "양송이수프-3"})
+    @ParameterizedTest
+    void countNoneDessertMenuInOrderMenu(String input) {
+        OrderMenus orderMenus = new OrderMenus(input);
+
+        int mainCount = orderMenus.countDessertType();
+
+        assertThat(mainCount).isEqualTo(0);
     }
 }
