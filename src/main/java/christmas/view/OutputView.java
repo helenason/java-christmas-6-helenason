@@ -24,6 +24,7 @@ public class OutputView {
     private static final String FORMAT_OF_EXPECTED_AMOUNT = "%s원\n";
     private static final String FORMAT_OF_NOTHING = "없음";
     private static final String FORMAT_OF_ZERO = "0원";
+    private static final String FORMAT_OF_PRICE_NUMBER = "#,###";
 
     public void printGreetingMessage() {
         System.out.println(GREETING_MESSAGE);
@@ -99,7 +100,7 @@ public class OutputView {
     }
 
     private String formatAmount(int amount) {
-        DecimalFormat formatter = new DecimalFormat("#,###");
+        DecimalFormat formatter = new DecimalFormat(FORMAT_OF_PRICE_NUMBER);
         return formatter.format(amount);
     }
 
