@@ -2,7 +2,6 @@ package christmas.controller;
 
 import christmas.constant.Event;
 import christmas.model.Benefits;
-import christmas.model.DecemberCalendar;
 import christmas.model.OrderMenus;
 import christmas.model.event.*;
 import christmas.view.OutputView;
@@ -46,7 +45,8 @@ public class EventManager {
 
         int presentEventAmount = organizePresentBenefits(orderMenus, date);
         int christmasDiscountAmount = organizeChristmasBenefits(date);
-        int dayDiscountAmount = organizeDayBenefits(orderMenus, date);
+        int weekdayDiscountAmount = organizeWeekdayBenefits(orderMenus, date);
+        int weekendDiscountAmount = organizeWeekendBenefits(orderMenus, date);
         int specialDiscountAmount = organizeSpecialBenefits(date);
 
         organizePresentation(presentEventAmount);
@@ -54,7 +54,8 @@ public class EventManager {
         outputView.printBenefits(benefits.getBenefits());
 
         int totalDiscountAmount = christmasDiscountAmount
-                + dayDiscountAmount
+                + weekdayDiscountAmount
+                + weekendDiscountAmount
                 + specialDiscountAmount
                 + presentEventAmount;
         outputView.printTotalDiscount(totalDiscountAmount);
@@ -77,14 +78,15 @@ public class EventManager {
         return discountAmount;
     }
 
-    private int organizeDayBenefits(OrderMenus orderMenus, int date) {
-        if (DecemberCalendar.isWeekend(date)) {
-            int discountAmount = weekendDiscount.calculate(orderMenus, date);
-            benefits.createBenefit(Event.WEEKEND, discountAmount);
-            return discountAmount;
-        }
+    private int organizeWeekdayBenefits(OrderMenus orderMenus, int date) {
         int discountAmount = weekdayDiscount.calculate(orderMenus, date);
         benefits.createBenefit(Event.WEEKDAY, discountAmount);
+        return discountAmount;
+    }
+
+    private int organizeWeekendBenefits(OrderMenus orderMenus, int date) {
+        int discountAmount = weekendDiscount.calculate(orderMenus, date);
+        benefits.createBenefit(Event.WEEKEND, discountAmount);
         return discountAmount;
     }
 
