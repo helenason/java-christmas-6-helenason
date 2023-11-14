@@ -49,10 +49,6 @@ public class OrderMenus {
         }
     }
 
-    public Map<Menu, Integer> getOrderMenus() {
-        return Collections.unmodifiableMap(orderMenus);
-    }
-
     private boolean hasOnlyDrinks() {
         Set<Menu> menus = orderMenus.keySet();
         return menus.stream().allMatch(Menu::isDrinkType);
@@ -63,6 +59,10 @@ public class OrderMenus {
         return counts.stream()
                 .mapToInt(Integer::intValue)
                 .sum(); // TODO: check convention!
+    }
+
+    public Map<Menu, Integer> getOrderMenus() {
+        return Collections.unmodifiableMap(orderMenus);
     }
 
     public int calculateTotalAmount() {
