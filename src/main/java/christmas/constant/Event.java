@@ -27,8 +27,8 @@ public enum Event {
         return date < startDate || date > endDate;
     }
 
-    public boolean isBeforeOrDayOfEndDate(int date) {
-        return date <= endDate;
+    public boolean isAfterEndDate(int date) {
+        return date > endDate;
     }
 
     public int gapBetweenStartDateAndDate(int date) {

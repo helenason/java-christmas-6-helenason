@@ -6,11 +6,9 @@ import christmas.model.OrderMenus;
 
 public class WeekendDiscount {
 
+    private static final int DISCOUNT_VALUE_PER_MENU = 2023;
+
     private final Event event = Event.WEEKEND;
-
-    public WeekendDiscount() {
-
-    }
 
     public int calculate(OrderMenus orderMenus, int date) {
         if (event.isInvalidPeriod(date)) {
@@ -19,6 +17,6 @@ public class WeekendDiscount {
         if (!DecemberCalendar.isWeekend(date)) {
             return 0;
         }
-        return orderMenus.countMainType() * 2023;
+        return orderMenus.countMainType() * DISCOUNT_VALUE_PER_MENU;
     }
 }
