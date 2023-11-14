@@ -11,11 +11,10 @@ public class BadgeEvent {
     private static final String SANTA = "산타";
     private static final String TREE = "트리";
     private static final String STAR = "별";
+    private static final Event EVENT = Event.BADGE;
 
-    private final Event event = Event.BADGE;
-
-    public String calculate(int benefitAmount, int date) {
-        if (event.isInvalidPeriod(date)) {
+    public static String calculate(int benefitAmount, int date) {
+        if (EVENT.isInvalidPeriod(date)) {
             return NOTHING;
         }
         if (checkIfSanta(benefitAmount)) {
@@ -30,15 +29,15 @@ public class BadgeEvent {
         return NOTHING;
     }
 
-    private boolean checkIfStar(int benefitAmount) {
+    private static boolean checkIfStar(int benefitAmount) {
         return benefitAmount >= MIN_BENEFIT_AMOUNT_FOR_STAR_BADGE;
     }
 
-    private boolean checkIfTree(int benefitAmount) {
+    private static boolean checkIfTree(int benefitAmount) {
         return benefitAmount >= MIN_BENEFIT_AMOUNT_FOR_TREE_BADGE;
     }
 
-    private boolean checkIfSanta(int benefitAmount) {
+    private static boolean checkIfSanta(int benefitAmount) {
         return benefitAmount >= MIN_BENEFIT_AMOUNT_FOR_SANTA_BADGE;
     }
 }

@@ -6,16 +6,15 @@ public class ChristmasDiscount {
 
     private static final int MIN_DISCOUNT_VALUE = 1000;
     private static final int DISCOUNT_VALUE_PER_DATE = 100;
+    private static final Event EVENT = Event.CHRISTMAS;
 
-    private final Event event = Event.CHRISTMAS;
-
-    public int calculate(int date) {
-        if (event.isInvalidPeriod(date)) {
+    public static int calculate(int date) {
+        if (EVENT.isInvalidPeriod(date)) {
             return 0;
         }
-        if (event.isAfterEndDate(date)) {
+        if (EVENT.isAfterEndDate(date)) {
             return 0;
         }
-        return MIN_DISCOUNT_VALUE + event.gapBetweenStartDateAndDate(date) * DISCOUNT_VALUE_PER_DATE;
+        return MIN_DISCOUNT_VALUE + EVENT.gapBetweenStartDateAndDate(date) * DISCOUNT_VALUE_PER_DATE;
     }
 }

@@ -6,11 +6,10 @@ import christmas.model.DecemberCalendar;
 public class SpecialDiscount {
 
     private static final int DISCOUNT_VALUE = 1000;
+    private static final Event EVENT = Event.SPECIAL;
 
-    private final Event event = Event.SPECIAL;
-
-    public int calculate(int date) {
-        if (event.isInvalidPeriod(date)) {
+    public static int calculate(int date) {
+        if (EVENT.isInvalidPeriod(date)) {
             return 0;
         }
         if (!DecemberCalendar.isSpecialDay(date)) {

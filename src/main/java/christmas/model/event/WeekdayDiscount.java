@@ -8,11 +8,10 @@ import christmas.model.OrderMenus;
 public class WeekdayDiscount {
 
     private static final int DISCOUNT_VALUE_PER_MENU = 2023;
+    private static final Event EVENT = Event.WEEKDAY;
 
-    private final Event event = Event.WEEKDAY;
-
-    public int calculate(OrderMenus orderMenus, int date) {
-        if (event.isInvalidPeriod(date)) {
+    public static int calculate(OrderMenus orderMenus, int date) {
+        if (EVENT.isInvalidPeriod(date)) {
             return 0;
         }
         if (DecemberCalendar.isWeekend(date)) {

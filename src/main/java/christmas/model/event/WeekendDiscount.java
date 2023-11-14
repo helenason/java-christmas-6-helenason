@@ -8,10 +8,10 @@ public class WeekendDiscount {
 
     private static final int DISCOUNT_VALUE_PER_MENU = 2023;
 
-    private final Event event = Event.WEEKEND;
+    private static final Event EVENT = Event.WEEKEND;
 
-    public int calculate(OrderMenus orderMenus, int date) {
-        if (event.isInvalidPeriod(date)) {
+    public static int calculate(OrderMenus orderMenus, int date) {
+        if (EVENT.isInvalidPeriod(date)) {
             return 0;
         }
         if (!DecemberCalendar.isWeekend(date)) {
