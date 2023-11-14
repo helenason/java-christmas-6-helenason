@@ -58,7 +58,7 @@ public class OrderMenus {
         Collection<Integer> counts = orderMenus.values();
         return counts.stream()
                 .mapToInt(Integer::intValue)
-                .sum(); // TODO: check convention!
+                .sum();
     }
 
     public Map<Menu, Integer> getOrderMenus() {
