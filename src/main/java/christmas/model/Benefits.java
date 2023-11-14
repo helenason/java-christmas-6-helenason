@@ -21,4 +21,14 @@ public class Benefits {
     public Map<Event, Integer> getBenefits() {
         return Collections.unmodifiableMap(benefits);
     }
+
+    public int calculateTotalDiscountAmount() {
+        return benefits.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public int getPresentEventDiscountAmount() {
+        return benefits.get(Event.PRESENT);
+    }
 }

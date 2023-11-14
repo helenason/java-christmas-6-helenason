@@ -31,74 +31,86 @@ public class EventManager {
     }
 
     public void organizeBenefits(OrderMenus orderMenus, int date) {
-
         int totalAmount = orderMenus.calculateTotalAmount();
-
-        if (totalAmount < MIN_TOTAL_AMOUNT_FOR_EVENT) {
-            outputView.printPresentMenu("없음");
-            outputView.printBenefits(benefits.getBenefits());
-            outputView.printTotalDiscount(0);
-            outputView.printExpectedAmount(totalAmount);
-            outputView.printEventBadge("없음");
+        if (isNotAppliedEvent(totalAmount)) {
+            notApplyEvent(totalAmount);
             return;
         }
 
-        int presentEventAmount = organizePresentBenefits(orderMenus, date);
-        int christmasDiscountAmount = organizeChristmasBenefits(date);
-        int weekdayDiscountAmount = organizeWeekdayBenefits(orderMenus, date);
-        int weekendDiscountAmount = organizeWeekendBenefits(orderMenus, date);
-        int specialDiscountAmount = organizeSpecialBenefits(date);
-
-        organizePresentation(presentEventAmount);
-
+        organizeEveryBenefits(orderMenus, date);
+        int presentEventAmount = organizePresentation();
         outputView.printBenefits(benefits.getBenefits());
 
-        int totalDiscountAmount = christmasDiscountAmount
-                + weekdayDiscountAmount
-                + weekendDiscountAmount
-                + specialDiscountAmount
-                + presentEventAmount;
-        outputView.printTotalDiscount(totalDiscountAmount);
+        int totalDiscountAmount = organizeTotalDiscountAmount();
+        organizeExpectedAmount(totalAmount, presentEventAmount, totalDiscountAmount);
+        organizeBadgeEvent(totalDiscountAmount, date);
+    }
 
+    private void notApplyEvent(int totalAmount) {
+        outputView.printPresentMenu("없음");
+        outputView.printBenefits(benefits.getBenefits());
+        outputView.printTotalDiscount(0);
+        outputView.printExpectedAmount(totalAmount);
+        outputView.printEventBadge("없음");
+    }
+
+    private boolean isNotAppliedEvent(int totalAmount) {
+        return totalAmount < MIN_TOTAL_AMOUNT_FOR_EVENT;
+    }
+
+    private int organizeTotalDiscountAmount() {
+        int totalDiscountAmount = benefits.calculateTotalDiscountAmount();
+        outputView.printTotalDiscount(totalDiscountAmount);
+        return totalDiscountAmount;
+    }
+
+    private void organizeExpectedAmount(int totalAmount, int presentEventAmount, int totalDiscountAmount) {
         int expectedAmount = totalAmount - totalDiscountAmount + presentEventAmount;
         outputView.printExpectedAmount(expectedAmount);
+    }
 
+    private void organizeBadgeEvent(int totalDiscountAmount, int date) {
         String badge = badgeEvent.calculate(totalDiscountAmount, date);
         outputView.printEventBadge(badge);
     }
 
-    private void organizePresentation(int presentEventAmount) {
+    private void organizeEveryBenefits(OrderMenus orderMenus, int date) {
+        organizePresentBenefits(orderMenus, date);
+        organizeChristmasBenefits(date);
+        organizeWeekdayBenefits(orderMenus, date);
+        organizeWeekendBenefits(orderMenus, date);
+        organizeSpecialBenefits(date);
+    }
+
+    private int organizePresentation() {
+        int presentEventAmount = benefits.getPresentEventDiscountAmount();
         String present = presentEvent.givePresent(presentEventAmount);
         outputView.printPresentMenu(present);
+        return presentEventAmount;
     }
 
-    private int organizeChristmasBenefits(int date) {
+    private void organizeChristmasBenefits(int date) {
         int discountAmount = christmasDiscount.calculate(date);
         benefits.createBenefit(Event.CHRISTMAS, discountAmount);
-        return discountAmount;
     }
 
-    private int organizeWeekdayBenefits(OrderMenus orderMenus, int date) {
+    private void organizeWeekdayBenefits(OrderMenus orderMenus, int date) {
         int discountAmount = weekdayDiscount.calculate(orderMenus, date);
         benefits.createBenefit(Event.WEEKDAY, discountAmount);
-        return discountAmount;
     }
 
-    private int organizeWeekendBenefits(OrderMenus orderMenus, int date) {
+    private void organizeWeekendBenefits(OrderMenus orderMenus, int date) {
         int discountAmount = weekendDiscount.calculate(orderMenus, date);
         benefits.createBenefit(Event.WEEKEND, discountAmount);
-        return discountAmount;
     }
 
-    private int organizeSpecialBenefits(int date) {
+    private void organizeSpecialBenefits(int date) {
         int discountAmount = specialDiscount.calculate(date);
         benefits.createBenefit(Event.SPECIAL, discountAmount);
-        return discountAmount;
     }
 
-    private int organizePresentBenefits(OrderMenus orderMenus, int date) {
+    private void organizePresentBenefits(OrderMenus orderMenus, int date) {
         int discountAmount = presentEvent.calculate(orderMenus.calculateTotalAmount(), date);
         benefits.createBenefit(Event.PRESENT, discountAmount);
-        return discountAmount;
     }
 }
