@@ -8,8 +8,6 @@ import christmas.view.OutputView;
 
 public class EventManager {
 
-    private static final int MIN_TOTAL_AMOUNT_FOR_EVENT = 10000;
-
     private final OutputView outputView;
     private final Benefits benefits;
 
@@ -19,31 +17,14 @@ public class EventManager {
     }
 
     public void organizeBenefits(OrderMenus orderMenus, int date) {
-        int totalAmount = orderMenus.calculateTotalAmount();
-        if (isNotAppliedEvent(totalAmount)) {
-            notApplyEvent(totalAmount);
-            return;
-        }
-
         organizeEveryBenefits(orderMenus, date);
         int presentEventAmount = organizePresentation();
         outputView.printBenefits(benefits.getBenefits());
 
+        int totalAmount = orderMenus.calculateTotalAmount();
         int totalDiscountAmount = organizeTotalDiscountAmount();
         organizeExpectedAmount(totalAmount, presentEventAmount, totalDiscountAmount);
         organizeBadgeEvent(totalDiscountAmount, date);
-    }
-
-    private void notApplyEvent(int totalAmount) {
-        outputView.printPresentMenu("없음");
-        outputView.printBenefits(benefits.getBenefits());
-        outputView.printTotalDiscount(0);
-        outputView.printExpectedAmount(totalAmount);
-        outputView.printEventBadge("없음");
-    }
-
-    private boolean isNotAppliedEvent(int totalAmount) {
-        return totalAmount < MIN_TOTAL_AMOUNT_FOR_EVENT;
     }
 
     private int organizeTotalDiscountAmount() {

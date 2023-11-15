@@ -7,9 +7,12 @@ import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Planner {
+
+    private static final int MIN_TOTAL_AMOUNT_FOR_EVENT = 10000;
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -33,12 +36,17 @@ public class Planner {
         outputView.printStartMessage(visitDate.getDay());
 
         informOrderMenu();
-
-        int totalAmount = orderMenus.calculateTotalAmount();
-        informTotalAmount(totalAmount);
     }
 
     public void work() {
+        int totalAmount = orderMenus.calculateTotalAmount();
+        informTotalAmount(totalAmount);
+
+        if (isNotAppliedEvent(totalAmount)) {
+            notApplyEvent(totalAmount);
+            return;
+        }
+
         EventManager eventManager = new EventManager(outputView);
         eventManager.organizeBenefits(orderMenus, visitDate.getDay());
     }
@@ -74,4 +82,17 @@ public class Planner {
             }
         }
     }
+
+    private void notApplyEvent(int totalAmount) {
+        outputView.printPresentMenu("없음");
+        outputView.printBenefits(new HashMap<>());
+        outputView.printTotalDiscount(0);
+        outputView.printExpectedAmount(totalAmount);
+        outputView.printEventBadge("없음");
+    }
+
+    private boolean isNotAppliedEvent(int totalAmount) {
+        return totalAmount < MIN_TOTAL_AMOUNT_FOR_EVENT;
+    }
+
 }
