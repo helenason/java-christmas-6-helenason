@@ -2,36 +2,19 @@ package christmas.view;
 
 import christmas.constant.Menu;
 import christmas.constant.Event;
+import christmas.constant.OutputMessage;
 
 import java.text.DecimalFormat;
 import java.util.Map;
 
 public class OutputView {
 
-    private static final String GREETING_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
-    private static final String PLANNER_START_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
-    private static final String INFORM_ORDER_MENU = "<주문 메뉴>";
-    private static final String INFORM_TOTAL_AMOUNT = "<할인 전 총주문 금액>";
-    private static final String INFORM_PRESENT_MENU = "<증정 메뉴>";
-    private static final String INFORM_BENEFITS_DETAILS = "<혜택 내역>";
-    private static final String INFORM_TOTAL_DISCOUNT = "<총혜택 금액>";
-    private static final String INFORM_EXPECTED_AMOUNT = "<할인 후 예상 결제 금액>";
-    private static final String INFORM_EVENT_BADGE = "<12월 이벤트 배지>";
-    private static final String FORMAT_OF_ORDER_MENU = "%s %d개\n";
-    private static final String FORMAT_OF_TOTAL_AMOUNT = "%s원\n";
-    private static final String FORMAT_OF_APPLY_EVENT = "%s: -%s원\n";
-    private static final String FORMAT_OF_TOTAL_DISCOUNT = "-%s원\n";
-    private static final String FORMAT_OF_EXPECTED_AMOUNT = "%s원\n";
-    private static final String FORMAT_OF_NOTHING = "없음";
-    private static final String FORMAT_OF_ZERO = "0원";
-    private static final String FORMAT_OF_PRICE_NUMBER = "#,###";
-
     public void printGreetingMessage() {
-        System.out.println(GREETING_MESSAGE);
+        System.out.println(OutputMessage.GREETING_MESSAGE.getMessage());
     }
 
     public void printStartMessage(int visitDate) {
-        System.out.printf(PLANNER_START_MESSAGE, visitDate);
+        System.out.printf(OutputMessage.PLANNER_START_MESSAGE.getMessage(), visitDate);
         System.out.println();
     }
 
@@ -40,29 +23,31 @@ public class OutputView {
     }
 
     public void printOrderMenu(Map<Menu, Integer> orderMenus) {
-        System.out.println(INFORM_ORDER_MENU);
+        System.out.println(OutputMessage.INFORM_ORDER_MENU.getMessage());
         orderMenus.forEach(
-                (menu, count) -> System.out.printf(FORMAT_OF_ORDER_MENU, menu.getFoodName(), count)
+                (menu, count) -> {
+                    System.out.printf(OutputMessage.FORMAT_OF_ORDER_MENU.getMessage(), menu.getFoodName(), count);
+                }
         );
         printNewLine();
     }
 
     public void printPresentMenu(String present) {
-        System.out.println(INFORM_PRESENT_MENU);
+        System.out.println(OutputMessage.INFORM_PRESENT_MENU.getMessage());
         System.out.println(present);
         printNewLine();
     }
 
     public void printTotalAmount(int totalAmount) {
-        System.out.println(INFORM_TOTAL_AMOUNT);
-        System.out.printf(FORMAT_OF_TOTAL_AMOUNT, formatAmount(totalAmount));
+        System.out.println(OutputMessage.INFORM_TOTAL_AMOUNT.getMessage());
+        System.out.printf(OutputMessage.FORMAT_OF_TOTAL_AMOUNT.getMessage(), formatAmount(totalAmount));
         printNewLine();
     }
 
     public void printBenefits(Map<Event, Integer> benefits) {
-        System.out.println(INFORM_BENEFITS_DETAILS);
+        System.out.println(OutputMessage.INFORM_BENEFITS_DETAILS.getMessage());
         if (benefits.values().stream().allMatch(amount -> amount.equals(0))) {
-            System.out.println(FORMAT_OF_NOTHING);
+            System.out.println(OutputMessage.FORMAT_OF_NOTHING.getMessage());
             printNewLine();
             return;
         }
@@ -72,35 +57,36 @@ public class OutputView {
 
     private void printAppliedBenefits(Event event, Integer discountAmount) {
         if (discountAmount != 0) {
-            System.out.printf(FORMAT_OF_APPLY_EVENT, event.getEventName(), formatAmount(discountAmount));
+            System.out.printf(OutputMessage.FORMAT_OF_APPLY_EVENT.getMessage(),
+                    event.getEventName(), formatAmount(discountAmount));
         }
     }
 
     public void printTotalDiscount(int discountAmount) {
-        System.out.println(INFORM_TOTAL_DISCOUNT);
+        System.out.println(OutputMessage.INFORM_TOTAL_DISCOUNT.getMessage());
 
         if (discountAmount == 0) {
-            System.out.println(FORMAT_OF_ZERO);
+            System.out.println(OutputMessage.FORMAT_OF_ZERO.getMessage());
             printNewLine();
             return;
         }
-        System.out.printf(FORMAT_OF_TOTAL_DISCOUNT, formatAmount(discountAmount));
+        System.out.printf(OutputMessage.FORMAT_OF_TOTAL_DISCOUNT.getMessage(), formatAmount(discountAmount));
         printNewLine();
     }
 
     public void printExpectedAmount(int expectedAmount) {
-        System.out.println(INFORM_EXPECTED_AMOUNT);
-        System.out.printf(FORMAT_OF_EXPECTED_AMOUNT, formatAmount(expectedAmount));
+        System.out.println(OutputMessage.INFORM_EXPECTED_AMOUNT.getMessage());
+        System.out.printf(OutputMessage.FORMAT_OF_EXPECTED_AMOUNT.getMessage(), formatAmount(expectedAmount));
         printNewLine();
     }
 
     public void printEventBadge(String badge) {
-        System.out.println(INFORM_EVENT_BADGE);
+        System.out.println(OutputMessage.INFORM_EVENT_BADGE.getMessage());
         System.out.println(badge);
     }
 
     private String formatAmount(int amount) {
-        DecimalFormat formatter = new DecimalFormat(FORMAT_OF_PRICE_NUMBER);
+        DecimalFormat formatter = new DecimalFormat(OutputMessage.FORMAT_OF_PRICE_NUMBER.getMessage());
         return formatter.format(amount);
     }
 

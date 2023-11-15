@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.constant.Menu;
+import christmas.constant.OutputMessage;
 import christmas.model.DecemberCalendar;
 import christmas.model.OrderMenus;
 import christmas.model.VisitDate;
@@ -84,15 +85,14 @@ public class Planner {
     }
 
     private void notApplyEvent(int totalAmount) {
-        outputView.printPresentMenu("없음");
+        outputView.printPresentMenu(OutputMessage.FORMAT_OF_NOTHING.getMessage());
         outputView.printBenefits(new HashMap<>());
         outputView.printTotalDiscount(0);
         outputView.printExpectedAmount(totalAmount);
-        outputView.printEventBadge("없음");
+        outputView.printEventBadge(OutputMessage.FORMAT_OF_NOTHING.getMessage());
     }
 
     private boolean isNotAppliedEvent(int totalAmount) {
         return totalAmount < MIN_TOTAL_AMOUNT_FOR_EVENT;
     }
-
 }
